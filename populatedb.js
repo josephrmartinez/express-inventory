@@ -33,8 +33,8 @@ console.log(
     mongoose.connection.close();
   }
   
-  async function categoryCreate(name) {
-    const category = new Category({ name: name });
+  async function categoryCreate(name, description) {
+    const category = new Category({ name: name, description: description });
     await category.save();
     categories.push(category);
     console.log(`Added category: ${name}`);
@@ -60,8 +60,8 @@ console.log(
   async function createCategories() {
     console.log("Adding categories");
     await Promise.all([
-        categoryCreate("Retail"),
-        categoryCreate("Wholesale"),
+        categoryCreate("Retail", "Direct to consumer"),
+        categoryCreate("Wholesale", "Bulk quantity for wholesale accounts"),
     ]);
   }
   
