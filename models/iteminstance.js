@@ -4,7 +4,7 @@ const { DateTime } = require("luxon")
 const Schema = mongoose.Schema;
 
 const ItemInstanceSchema = new Schema({
-  name: { type: Schema.Types.ObjectId, ref: "Item", required: true },
+  item: { type: Schema.Types.ObjectId, ref: "Item", required: true },
   lot: { type: Number },
   bestby: { type: Date }
 });
