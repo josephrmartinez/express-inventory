@@ -23,7 +23,8 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
   ]);
 
   res.render("category_detail", {
-    title: category,
+    title: category.name,
+    description: category.description,
     items: itemsInCategory,
   });
 });

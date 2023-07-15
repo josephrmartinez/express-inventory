@@ -1,4 +1,5 @@
 const Item = require("../models/item");
+const ItemInstance = require("../models/iteminstance")
 
 const asyncHandler = require("express-async-handler");
 
@@ -10,8 +11,18 @@ exports.item_list = asyncHandler(async (req, res, next) => {
   
   // Display detail page for a specific item.
   exports.item_detail = asyncHandler(async (req, res, next) => {
-    res.send(`NOT IMPLEMENTED: item detail: ${req.params.id}`);
+  const [item, itemInstances] = await Promise.all([
+    Item.findById(req.params.id).exec(),
+    ItemInstance.find({ item: req.params.id }, "lot bestby").exec(),
+  ]);
+
+  res.render("item_detail", {
+    title: item.name,
+    description: item.description,
+    item: item,
+    items: itemInstances,
   });
+});
   
   // Display item create form on GET.
   exports.item_create_get = asyncHandler(async (req, res, next) => {

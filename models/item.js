@@ -18,7 +18,8 @@ ItemSchema.virtual("url").get(function () {
 
 // Virtual for item's stock count:
 ItemSchema.virtual("stock").get( async function(){
-    const count = await mongoose.model("Item").countDocuments({});
+  const Item = mongoose.model("Item");
+  const count = await Item.countDocuments({});
   return count;
 });
 
