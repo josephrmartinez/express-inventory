@@ -7,7 +7,7 @@ require('dotenv').config()
 
 
 var indexRouter = require('./routes/index');
-var catalogueRouter = require('./routes/catalogue');
+var catalogRouter = require('./routes/catalog');
 
 var app = express();
 
@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/catalogue', catalogueRouter);
+app.use('/catalog', catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
