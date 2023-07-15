@@ -1,0 +1,31 @@
+extends layout
+
+block content
+
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='item') Item:
+      select#item.form-control(type='select' placeholder='Select item' name='item' required='true')
+        - item_list.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+        for item in item_list
+          option(value=item._id selected=(selected_item==item._id.toString() ? 'selected' : false) ) #{item.name} - #{item.category.name}
+
+    div.form-group
+      label(for='lot') Lot:
+      input#imprint.form-control(type='number' placeholder='Lot number' name='lot' required='true' value=(undefined===iteminstance ? '' : iteminstance.lot))
+    div.form-group
+      label(for='bestby') Best By Date:
+      input#bestby.form-control(type='date' name='bestby' value=(undefined===iteminstance ? '' : iteminstance.bestby))
+
+    div.form-group
+      label(for='quantity') Quantity:
+      input#quantity.form-control(type='number' placeholder='Quantity' name='quantity' required='true' value=(undefined===quantity ? '' : quantity))
+        
+
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

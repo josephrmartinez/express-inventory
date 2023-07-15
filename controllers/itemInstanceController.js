@@ -1,4 +1,5 @@
 const ItemInstance = require("../models/iteminstance");
+const Item = require("../models/item")
 
 const asyncHandler = require("express-async-handler");
 
@@ -15,13 +16,43 @@ exports.iteminstance_list = asyncHandler(async (req, res, next) => {
   
   // Display iteminstance create form on GET.
   exports.iteminstance_create_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: iteminstance create GET");
+    const allItems = await Item.find({}, "name size category")
+    .populate("category")
+    .exec();
+
+    res.render("iteminstance_form", {
+      item_list: allItems
+    })
   });
+
+
+
   
   // Handle iteminstance create on POST.
-  exports.iteminstance_create_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: iteminstance create POST");
-  });
+  exports.iteminstance_create_post = async (req, res, next) => {
+    try {
+      console.log(req.body);
+  
+      // Create multiple Item instances
+      const instances = [];
+      for (let i = 0; i < req.body.quantity; i++) {
+        const instance = new ItemInstance({
+          item: req.body.item,
+          lot: req.body.lot,
+          bestby: req.body.bestby
+        });
+        instances.push(instance);
+      }
+  
+      await ItemInstance.insertMany(instances); // Save all instances at once
+  
+      res.redirect("/admin");
+      
+    } catch (err) {
+      console.error(err);
+      
+    }
+  };
   
   // Display iteminstance delete form on GET.
   exports.iteminstance_delete_get = asyncHandler(async (req, res, next) => {
