@@ -17,15 +17,13 @@ block content
     ul
         each key in Object.keys(lotCounts) 
             li 
-                p #{key}: #{lotCounts[key]}
+                p #{key} - Count: #{lotCounts[key]}
                 
-
-
     h4 Units Available
     
-
     ul
         each item in items
             li 
-                p Lot #{item.lot} - Best By Date: #{item.bestby_formatted} #{item._id}
+                p Lot #{item.lot} - Best By Date: #{item.bestby_formatted} 
+                p ID: #{item._id} #[a(href=`/catalog/iteminstance/${item._id}/delete`) Delete]
                 
