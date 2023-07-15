@@ -13,8 +13,16 @@ block content
     br
     br
 
+    h4 Lots Available
+    ul
+        each key in Object.keys(lotCounts) 
+            li 
+                p #{key}: #{lotCounts[key]}
+                
+
+
     h4 Units Available
-    p #{item.lotCounts}
+    
 
     ul
         each item in items

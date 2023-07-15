@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const ItemInstance = require("../models/iteminstance");
+const { DateTime } = require("luxon")
 
 const Schema = mongoose.Schema;
 
@@ -26,10 +27,11 @@ ItemSchema.virtual("stock").get( async function(){
 
 
 ItemSchema.virtual("lotCounts").get(async function() {
-  const itemInstances = await ItemInstance.find({ item: this._id }, "lot").exec();
+  const itemInstances = await ItemInstance.find({ item: this._id }, "lot bestby").exec();
   
   const counts = itemInstances.reduce((acc, instance) => {
-    const lot = instance.lot;
+    const bestby_formatted = DateTime.fromJSDate(instance.bestby).toLocaleString(DateTime.DATE_MED)
+    const lot = `Lot: ${instance.lot} - Best by date: ${bestby_formatted}`;
     acc[lot] = (acc[lot] || 0) + 1;
     return acc;
   }, {});

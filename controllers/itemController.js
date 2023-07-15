@@ -29,6 +29,7 @@ exports.item_list = asyncHandler(async (req, res, next) => {
     description: item.description,
     item: item,
     items: itemInstances,
+    lotCounts: lotCounts
   });
 });
   
