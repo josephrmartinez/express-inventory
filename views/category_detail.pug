@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+  h1=title.name 
+  h2=title.description
+
+
+  div(style='margin-left:20px;margin-top:20px')
+
+    h4 Items
+
+    ul
+        each item in items
+            li 
+                a(href=item.url) #{item.name} #{item.size} oz - $#{item.price}
+                p #{item.description}
+                
+
+
+

@@ -6,9 +6,8 @@ const item_controller = require("../controllers/itemController");
 const iteminstance_controller = require("../controllers/itemInstanceController")
 const category_controller = require("../controllers/categoryController")
 
-router.get('/', (req, res) => {
-    res.send('NOT IMPLEMENTED: catalog index')
-})
+router.get('/', category_controller.category_list)
+
 /// ROUTES ///
 const entities = [
     { name: 'item', controller: item_controller },
