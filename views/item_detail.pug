@@ -1,15 +1,23 @@
 extends layout
 
 block content
-    p #{item.name} - #{item.size} oz - $#{item.price}
-    p #{item.description}
-    
 
+    h1=title
+    br
+
+    div(style='margin-left:20px;margin-top:20px')
+
+    h2 #{item.name} - #{item.size} oz - $#{item.price}
+    h5 #{item.description}
+
+    br
+    br
 
     h4 Units Available
+    p #{item.lotCounts}
 
     ul
         each item in items
             li 
-                p Lot #{item.lot} - #{item.bestby_formatted}
+                p Lot #{item.lot} - Best By Date: #{item.bestby_formatted} #{item._id}
                 

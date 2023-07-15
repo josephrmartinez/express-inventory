@@ -12,12 +12,20 @@ exports.item_list = asyncHandler(async (req, res, next) => {
   // Display detail page for a specific item.
   exports.item_detail = asyncHandler(async (req, res, next) => {
   const [item, itemInstances] = await Promise.all([
-    Item.findById(req.params.id).exec(),
+    Item.findById(req.params.id)
+    .populate("category")
+    .exec(),
     ItemInstance.find({ item: req.params.id }, "lot bestby").exec(),
+    
   ]);
+  console.log(item.category)
+  const lotCounts = await item.lotCounts
+  console.log(lotCounts)
 
+  
+  
   res.render("item_detail", {
-    title: item.name,
+    title: item.category.name,
     description: item.description,
     item: item,
     items: itemInstances,
