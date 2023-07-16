@@ -22,7 +22,7 @@ const authenticate = (req, res, next) => {
       next();
     } else {
       // Passwords don't match, return an unauthorized response
-      res.status(401).json({ error: 'Unauthorized', input: req.body.password});
+      res.redirect('/catalog')
     }
   }
 
