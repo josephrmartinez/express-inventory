@@ -25,7 +25,7 @@ exports.item_list = asyncHandler(async (req, res, next) => {
   
   
   res.render("item_detail", {
-    title: item.category.name,
+    title: item.name,
     description: item.description,
     item: item,
     items: itemInstances,

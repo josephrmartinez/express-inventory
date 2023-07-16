@@ -5,9 +5,9 @@ block content
     h1 Select Account Type
 
     ul
-        each item in category_list 
+        each category in category_list 
             li 
-                a(href=item.url) #{item.name}
+                a(href=category.url) #{category.name}
             br
     br
     br
