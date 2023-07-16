@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Delete Item: #{iteminstance.item.name}
+  h5 instance id: #{iteminstance._id}
+  h5 item id: #{itemid._id}
+
+  p Do you really want to delete this item instance?
+
+    form(method='POST' action='')
+      div.form-group
+        input#iteminstanceid.form-control(type='hidden',name='iteminstanceid', required='true', value=iteminstance._id )
+
+        // Add a hidden input field for itemid._id
+        input#itemid.form-control(type='hidden', name='itemid', value=itemid._id )
+
+
+      button.btn.btn-primary(type='submit') Delete

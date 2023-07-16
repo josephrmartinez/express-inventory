@@ -2,6 +2,7 @@ const ItemInstance = require("../models/iteminstance");
 const Item = require("../models/item")
 
 const asyncHandler = require("express-async-handler");
+const item = require("../models/item");
 
 
 // Display list of all iteminstances.
@@ -56,12 +57,19 @@ exports.iteminstance_list = asyncHandler(async (req, res, next) => {
   
   // Display iteminstance delete form on GET.
   exports.iteminstance_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: iteminstance delete GET");
+    const instance = await ItemInstance.findById(req.params.id)
+      .populate("item")
+      .exec()
+    res.render("iteminstance_delete", {
+      iteminstance: instance,
+      itemid: instance.item
+    })
   });
   
   // Handle iteminstance delete on POST.
   exports.iteminstance_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: iteminstance delete POST");
+    await ItemInstance.findByIdAndDelete(req.body.iteminstanceid)
+    res.redirect(`/catalog/item/${req.body.itemid}`)
   });
   
   // Display iteminstance update form on GET.
