@@ -13,4 +13,17 @@ block content
     br
     br
     br
-    a(href="/admin") Admin
+    a(href="#", data-toggle="modal", data-target="#passwordModal") Admin
+    
+    .modal.fade#passwordModal(tabindex="-1", role="dialog")
+        .modal-dialog(role="document")
+            .modal-content
+                .modal-header
+                    h5.modal-title Enter Password
+                    button.close(type="button", data-dismiss="modal", aria-label="Close")
+                        span(aria-hidden="true") &times;
+                form(action="/admin", method="POST")
+                    .modal-body   
+                        input#passwordInput.form-control(name="password", type="password", placeholder="Password")
+                    .modal-footer
+                        button#submitPassword.btn.btn-primary(type="submit") Submit
